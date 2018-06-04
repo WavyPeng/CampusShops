@@ -21,7 +21,7 @@ target/
 *ipr
 *iml
 *iws
-out/
+
 
 #temp file
 *.log
@@ -33,4 +33,7 @@ out/
 #system ignore
 .DS_Store
 Thumbs.db
+
+out/
+
 
