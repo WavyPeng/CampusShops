@@ -67,6 +67,57 @@ public class ShopServiceImpl implements IShopService{
         return new ShopDto(ShopStateEnum.CHECK, shop);
     }
 
+    /**
+     * 通过店铺Id获取店铺信息
+     * @param shopId
+     * @return
+     */
+    @Override
+    public Shop getByShopId(long shopId) {
+        return shopDao.queryByShopId(shopId);
+    }
+
+    /**
+     * 更新店铺信息，包括对图片的处理
+     * @param shop
+     * @param thumbnail
+     * @return
+     * @throws ShopOperationException
+     */
+    @Override
+    @Transactional
+    public ShopDto modifyShop(Shop shop, ImageDto thumbnail) throws ShopOperationException {
+        if(shop == null || shop.getShopId()==null){
+            return new ShopDto(ShopStateEnum.NULL_SHOP);
+        }else{
+            try{
+                // 1.判断是否需要修改图片
+                if(thumbnail.getImage()!=null
+                        &&thumbnail.getImageName()!=null
+                        &&!"".equals(thumbnail.getImageName())){
+                    Shop tmpShop = shopDao.queryByShopId(shop.getShopId());
+                    // 如果原纪录中已存在图片，则将其删除
+                    if(tmpShop.getShopImg()!=null){
+                        ImageUtil.deleteFileOrPath(tmpShop.getShopImg());
+                    }
+                    // 更新图片
+                    addShopImg(shop,thumbnail);
+                }
+                // 2.更新店铺信息
+                shop.setLastEditTime(new Date());
+                int effectedNum = shopDao.updateShop(shop);
+                if (effectedNum <= 0) {
+                    return new ShopDto(ShopStateEnum.INNER_ERROR);
+                } else {
+                    shop = shopDao.queryByShopId(shop.getShopId());
+                    return new ShopDto(ShopStateEnum.SUCCESS, shop);
+                }
+            }catch (Exception e){
+                throw new ShopOperationException("modifyShop error:" + e.getMessage());
+            }
+        }
+    }
+
     private void addShopImg(Shop shop, ImageDto thumbnail) {
         // 获取shop图片目录的相对值路径
         String dest = PathUtil.getShopImagePath(shop.getShopId());

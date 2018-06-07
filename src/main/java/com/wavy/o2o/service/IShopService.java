@@ -16,4 +16,20 @@ public interface IShopService {
      * @return
      */
     ShopDto addShop(Shop shop, ImageDto thumbnail)throws ShopOperationException;
+
+    /**
+     * 通过店铺Id获取店铺信息
+     * @param shopId
+     * @return
+     * @throws ShopOperationException
+     */
+    Shop getByShopId(long shopId);
+
+    /**
+     * 更新店铺信息，包括对图片的处理
+     * @param shop
+     * @param thumbnail
+     * @return
+     */
+    ShopDto modifyShop(Shop shop,ImageDto thumbnail) throws ShopOperationException;
 }

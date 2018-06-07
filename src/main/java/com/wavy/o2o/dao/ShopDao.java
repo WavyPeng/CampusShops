@@ -19,4 +19,11 @@ public interface ShopDao {
      * @return
      */
     int updateShop(Shop shop);
+
+    /**
+     * 通过shop Id查询店铺
+     * @param shopId
+     * @return
+     */
+    Shop queryByShopId(long shopId);
 }

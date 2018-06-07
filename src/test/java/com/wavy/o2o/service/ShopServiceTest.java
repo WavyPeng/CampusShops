@@ -9,13 +9,11 @@ import com.wavy.o2o.entity.ShopCategory;
 import com.wavy.o2o.entity.UserInfo;
 import com.wavy.o2o.enums.ShopStateEnum;
 import com.wavy.o2o.exception.ShopOperationException;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -28,6 +26,19 @@ public class ShopServiceTest extends BaseTest{
     private IShopService shopService;
 
     @Test
+    public void testModifyShop() throws ShopOperationException,FileNotFoundException{
+        Shop shop = new Shop();
+        shop.setShopId(1L);
+        shop.setShopName("修改后的店铺名称");
+        File shopImg = new File("E:/o2o/image/dabai.jpg");
+        InputStream in = new FileInputStream(shopImg);
+        ImageDto imageDto = new ImageDto("dabai.jpg",in);
+        ShopDto shopDto = shopService.modifyShop(shop,imageDto);
+        System.out.println("新的图片地址为："+shopDto.getShop().getShopImg());
+    }
+
+    @Test
+    @Ignore
     public void testAddShop() throws ShopOperationException,FileNotFoundException{
         Shop shop = new Shop();
         UserInfo owner = new UserInfo();
