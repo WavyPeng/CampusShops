@@ -2,8 +2,6 @@
  * 商铺操作
  */
 $(function() {
-    alert("step1");
-
     // 从URL里获取shopId参数的值
     var shopId = getQueryString('shopId');
     // 由于店铺注册和编辑使用的是同一个页面，

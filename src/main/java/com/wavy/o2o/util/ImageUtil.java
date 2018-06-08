@@ -65,9 +65,12 @@ public class ImageUtil {
         logger.debug("basePath is :" + basePath);
         // 调用Thumbnails生成带有水印的图片
         try {
+            logger.info("=======开始读图=======");
+            System.out.println(basePath + "/watermark.jpg");
             Thumbnails.of(thumbnail.getImage()).size(200, 200)
                     .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(new File(basePath + "/watermark.jpg")), 0.25f)
                     .outputQuality(0.8f).toFile(dest);
+            logger.info("=======读图结束=======");
         } catch (IOException e) {
             logger.error(e.toString());
             throw new RuntimeException("创建缩略图失败：" + e.toString());

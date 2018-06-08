@@ -29,10 +29,10 @@ public class ShopServiceTest extends BaseTest{
     public void testModifyShop() throws ShopOperationException,FileNotFoundException{
         Shop shop = new Shop();
         shop.setShopId(1L);
-        shop.setShopName("修改后的店铺名称");
-        File shopImg = new File("E:/o2o/image/dabai.jpg");
+        shop.setShopName("梁山水煮");
+        File shopImg = new File("E:/o2o/image/baoman2.jpg");
         InputStream in = new FileInputStream(shopImg);
-        ImageDto imageDto = new ImageDto("dabai.jpg",in);
+        ImageDto imageDto = new ImageDto("baoman2.jpg",in);
         ShopDto shopDto = shopService.modifyShop(shop,imageDto);
         System.out.println("新的图片地址为："+shopDto.getShop().getShopImg());
     }
