@@ -32,4 +32,13 @@ public interface IShopService {
      * @return
      */
     ShopDto modifyShop(Shop shop,ImageDto thumbnail) throws ShopOperationException;
+
+    /**
+     * 根据shopCondition分页返回相应店铺列表
+     * @param shopCondition
+     * @param pageIndex 页码
+     * @param pageSize  每页显示的商品数
+     * @return
+     */
+    ShopDto getShopList(Shop shopCondition,int pageIndex,int pageSize);
 }

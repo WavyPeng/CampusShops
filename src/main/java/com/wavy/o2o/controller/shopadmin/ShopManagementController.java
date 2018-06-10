@@ -24,6 +24,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -213,5 +214,54 @@ public class ShopManagementController {
             modelMap.put("errMsg", "请输入店铺Id");
             return modelMap;
         }
+    }
+
+    @RequestMapping(value = "/getshoplist",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getShopList(HttpServletRequest request){
+        Map<String,Object> modelMap = new HashMap<>();
+        UserInfo user = new UserInfo();
+        user.setUserId(1L);
+        user.setName("测试");
+        request.getSession().setAttribute("user",user);
+        user = (UserInfo)request.getSession().getAttribute("user");
+        try{
+            Shop shopCondition = new Shop();
+            shopCondition.setOwner(user);
+            ShopDto shopDto = shopService.getShopList(shopCondition,0,100);
+            modelMap.put("shopList",shopDto.getShopList());
+            // 列出店铺成功之后，将店铺放入session中作为权限验证依据，即该帐号只能操作它自己的店铺
+            request.getSession().setAttribute("shopList", shopDto.getShopList());
+            modelMap.put("user", user);
+            modelMap.put("success", true);
+        }catch (Exception e){
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.getMessage());
+        }
+        return modelMap;
+    }
+
+    @RequestMapping(value = "/getshopmanagementinfo",method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String,Object> getShopManagementInfo(HttpServletRequest request){
+        Map<String,Object> modelMap = new HashMap<>();
+        long shopId = TypeUtil.getLong(request, "shopId");
+        if(shopId<=0){ // 前端未传递shopId，则尝试从session中获取currentShop信息
+            Object currentShopObj = request.getSession().getAttribute("currentShop");
+            if(currentShopObj==null){ // 店铺为空，重定向到店铺列表页
+                modelMap.put("redirect", true);
+                modelMap.put("url", "/shopadmin/shoplist");
+            }else{
+                Shop shop = (Shop)currentShopObj;
+                modelMap.put("redirect", false);
+                modelMap.put("shopId", shop.getShopId());
+            }
+        }else {
+            Shop currentShop = new Shop();
+            currentShop.setShopId(shopId);
+            request.getSession().setAttribute("currentShop", currentShop);
+            modelMap.put("redirect", false);
+        }
+        return modelMap;
     }
 }

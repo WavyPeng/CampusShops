@@ -8,12 +8,14 @@ import com.wavy.o2o.enums.ShopStateEnum;
 import com.wavy.o2o.exception.ShopOperationException;
 import com.wavy.o2o.service.IShopService;
 import com.wavy.o2o.util.ImageUtil;
+import com.wavy.o2o.util.PageUtil;
 import com.wavy.o2o.util.PathUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WavyPeng on 2018/6/3.
@@ -116,6 +118,31 @@ public class ShopServiceImpl implements IShopService{
                 throw new ShopOperationException("modifyShop error:" + e.getMessage());
             }
         }
+    }
+
+    /**
+     * 根据shopCondition分页返回相应店铺列表
+     * @param shopCondition
+     * @param pageIndex 页码
+     * @param pageSize  每页显示的商品数
+     * @return
+     */
+    @Override
+    public ShopDto getShopList(Shop shopCondition, int pageIndex, int pageSize) {
+        // 将pageIndex转换成rowIndex
+        int rowIndex = PageUtil.pageIndexToRowIndex(pageIndex,pageSize);
+        // 查询店铺列表
+        List<Shop> shopList = shopDao.queryShopList(shopCondition,rowIndex,pageSize);
+        // 查询店铺总数
+        int shopCount = shopDao.queryShopCount(shopCondition);
+        ShopDto shopDto = new ShopDto();
+        if(shopList!=null){
+            shopDto.setShopList(shopList);
+            shopDto.setCount(shopCount);
+        }else{
+            shopDto.setState(ShopStateEnum.INNER_ERROR.getState());
+        }
+        return shopDto;
     }
 
     private void addShopImg(Shop shop, ImageDto thumbnail) {
