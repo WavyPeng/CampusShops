@@ -220,11 +220,14 @@ public class ShopManagementController {
     @ResponseBody
     private Map<String,Object> getShopList(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<>();
+        // todo 从session中获取用户
         UserInfo user = new UserInfo();
         user.setUserId(1L);
         user.setName("测试");
         request.getSession().setAttribute("user",user);
         user = (UserInfo)request.getSession().getAttribute("user");
+        // --------end--------
+
         try{
             Shop shopCondition = new Shop();
             shopCondition.setOwner(user);

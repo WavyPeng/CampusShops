@@ -1,6 +1,7 @@
 package com.wavy.o2o.service.impl;
 
 import com.wavy.o2o.dao.ProductCategoryDao;
+import com.wavy.o2o.dao.ProductDao;
 import com.wavy.o2o.dto.ProductCategoryDto;
 import com.wavy.o2o.entity.Product;
 import com.wavy.o2o.entity.ProductCategory;
@@ -17,7 +18,8 @@ import java.util.List;
 public class ProductCategoryServiceImpl implements IProductCategoryService{
     @Autowired
     private ProductCategoryDao productCategoryDao;
-
+    @Autowired
+    private ProductDao productDao;
 
     /**
      * 查询指定某个店铺下的所有商品类别信息
@@ -66,8 +68,15 @@ public class ProductCategoryServiceImpl implements IProductCategoryService{
     @Transactional
     public ProductCategoryDto deleteProductCategory(long productCategoryId, long shopId)
             throws ProductCategoryOperationException {
-        // todo 将此类别下的商品里的类别id置为空
-
+        // 解除tb_product里的商品与该producategoryId的关联
+        try{
+            int effectNum = productDao.updateProductCategoryToNull(productCategoryId);
+            if (effectNum < 0) {
+                throw new ProductCategoryOperationException("商品类别更新失败");
+            }
+        }catch (Exception e){
+            throw new ProductCategoryOperationException("deleteProductCategory error:" + e.getMessage());
+        }
         // 删除该productCategory
         try {
             int effectedNum = productCategoryDao.deleteProductCategory(productCategoryId, shopId);
