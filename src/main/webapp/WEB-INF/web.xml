@@ -54,6 +54,13 @@
       <param-name>kaptcha.textproducer.font.names</param-name>
       <param-value>Arial</param-value>
     </init-param>
+
+    <!-- 允许虚拟路径显示目录 -->
+    <init-param>
+      <param-name>listings</param-name>
+      <param-value>true</param-value>
+    </init-param>
+
   </servlet>
   <servlet-mapping>
     <servlet-name>Kaptcha</servlet-name>

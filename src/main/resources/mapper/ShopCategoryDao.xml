@@ -16,6 +16,10 @@
         FROM
         tb_shop_category
         <where>
+            <!-- 获取分类一级目录 -->
+            <if test="shopCategoryCondition == null">
+                and parent_id is null
+            </if>
             <if test="shopCategoryCondition != null">
                 and parent_id is not null
             </if>
