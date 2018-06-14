@@ -18,4 +18,34 @@ public class FrontendController {
     private String index() {
         return "frontend/index";
     }
+
+    /**
+     * 商品列表页路由
+     *
+     * @return
+     */
+    @RequestMapping(value = "/shoplist", method = RequestMethod.GET)
+    private String showShopList() {
+        return "frontend/shoplist";
+    }
+
+    /**
+     * 店铺详情页路由
+     *
+     * @return
+     */
+    @RequestMapping(value = "/shopdetail", method = RequestMethod.GET)
+    private String showShopDetail() {
+        return "frontend/shopdetail";
+    }
+
+    /**
+     * 商品详情页路由
+     *
+     * @return
+     */
+    @RequestMapping(value = "/productdetail", method = RequestMethod.GET)
+    private String showProductDetail() {
+        return "frontend/productdetail";
+    }
 }
