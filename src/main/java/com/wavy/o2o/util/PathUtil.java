@@ -15,7 +15,7 @@ public class PathUtil {
         if (os.toLowerCase().startsWith("win")) {
             basePath = "E:/o2o/image";
         } else {
-            basePath = "/Users/o2o/image";
+            basePath = "/root/tmp/wavy/image";
         }
         basePath = basePath.replace("/", seperator);
         return basePath;
