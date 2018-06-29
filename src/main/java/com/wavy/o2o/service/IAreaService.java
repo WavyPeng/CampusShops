@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface IAreaService {
 
+    public static final String AREALISTKEY = "arealist";
+
     /**
      * 获取区域列表
      * @return
