@@ -11,9 +11,9 @@ public class JedisPoolWriper {
     /**Redis连接池对象 */
     private JedisPool jedisPool;
 
-    public JedisPoolWriper(final JedisPoolConfig poolConfig,final String host,final int port){
+    public JedisPoolWriper(final JedisPoolConfig poolConfig,final String host,final int port,final String password){
         try{
-            jedisPool = new JedisPool(poolConfig,host,port);
+            jedisPool = new JedisPool(poolConfig,host,port,2000,password);
         }catch (Exception e){
             e.printStackTrace();
         }
