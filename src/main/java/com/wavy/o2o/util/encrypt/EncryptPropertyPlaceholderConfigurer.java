@@ -1,6 +1,5 @@
 package com.wavy.o2o.util.encrypt;
 
-import com.wavy.o2o.util.DESUtil;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 /**
  * 加密连接数据库明文密码

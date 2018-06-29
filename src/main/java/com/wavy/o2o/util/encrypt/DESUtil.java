@@ -1,4 +1,4 @@
-package com.wavy.o2o.util;
+package com.wavy.o2o.util.encrypt;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
