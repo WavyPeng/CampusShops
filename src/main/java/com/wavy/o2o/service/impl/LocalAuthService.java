@@ -25,7 +25,7 @@ public class LocalAuthService implements ILocalAuthService{
     }
 
     @Override
-    public LocalAccount getByUserId(String userId) {
+    public LocalAccount getByUserId(long userId) {
         return localAccountDao.queryById(userId);
     }
 

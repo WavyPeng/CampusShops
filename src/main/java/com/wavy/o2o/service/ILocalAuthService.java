@@ -21,7 +21,7 @@ public interface ILocalAuthService {
      * @param userId
      * @return
      */
-    LocalAccount getByUserId(String userId);
+    LocalAccount getByUserId(long userId);
 
     /**
      * 绑定微信，生成平台专属账号

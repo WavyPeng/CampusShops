@@ -22,7 +22,7 @@ public interface LocalAccountDao {
      * @param userId
      * @return
      */
-    LocalAccount queryById(@Param("userId")String userId);
+    LocalAccount queryById(@Param("userId")long userId);
 
     /**
      * 插入新账号

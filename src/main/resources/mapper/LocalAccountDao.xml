@@ -43,7 +43,7 @@
         ON l.user_id = u.user_id
         WHERE l.username = #{username} AND l.password = #{password}
     </select>
-    <select id="queryById" resultMap="localAccountResultMap" parameterType="String">
+    <select id="queryById" resultMap="localAccountResultMap" parameterType="Long">
         SELECT
         l.local_auth_id,
         l.username,
