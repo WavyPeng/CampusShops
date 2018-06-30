@@ -33,5 +33,26 @@
     <!-- 4.扫描web相关的bean -->
     <context:component-scan base-package="com.wavy.o2o.controller" />
     <!-- 5.权限拦截器 -->
-
+    <mvc:interceptors>
+        <!-- 店铺管理模块登录验证拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/shopadmin/**"/>
+            <bean id="shopInterceptor" class="com.wavy.o2o.interceptor.ShopLoginInterceptor" />
+        </mvc:interceptor>
+        <!-- 店铺操作权限拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/shopadmin/**" />
+            <!-- shoplist page -->
+            <mvc:exclude-mapping path="/shopadmin/shoplist" />
+            <mvc:exclude-mapping path="/shopadmin/getshoplist" />
+            <!-- shopregister page -->
+            <mvc:exclude-mapping path="/shopadmin/getshopinitinfo" />
+            <mvc:exclude-mapping path="/shopadmin/registershop" />
+            <mvc:exclude-mapping path="/shopadmin/shopoperation" />
+            <!-- shopmanage page -->
+            <mvc:exclude-mapping path="/shopadmin/shopmanagement" />
+            <mvc:exclude-mapping path="/shopadmin/getshopmanagementinfo" />
+            <bean id="ShopPermissionInterceptor" class="com.wavy.o2o.interceptor.ShopPermissionInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

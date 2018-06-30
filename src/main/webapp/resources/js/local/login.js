@@ -1,6 +1,6 @@
 $(function() {
     // 登录验证的controller url
-    var loginUrl = '/o2o/local/login';
+    var loginUrl = '/o2o/local/logincheck';
     // 从地址栏的URL里获取usertype
     // usertype=1则为customer,其余为shopowner
     var usertype = getQueryString('usertype');

@@ -128,7 +128,7 @@ public class LocalAuthController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/logincheck",method = RequestMethod.POST)
     @ResponseBody
     private Map<String,Object> login(HttpServletRequest request){
         Map<String,Object> modelMap = new HashMap<>();
