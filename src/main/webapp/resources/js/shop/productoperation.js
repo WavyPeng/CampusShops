@@ -88,6 +88,7 @@ $(function() {
             product.productName = $('#product-name').val();
             product.productDesc = $('#product-desc').val();
             product.priority = $('#priority').val();
+            product.point = $('#point').val();
             product.originalPrice = $('#normal-price').val();
             product.discountPrice = $('#promotion-price').val();
             // 获取选定的商品类别值
